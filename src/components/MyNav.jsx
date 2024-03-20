@@ -2,6 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 const MyNav = () => (
@@ -14,8 +15,16 @@ const MyNav = () => (
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto fw-semibold text-secondary">
           <Nav.Link className="text-light"     href="#home">Home</Nav.Link>
-          <Nav.Link className="text-light"     href="#link">Tv Shows</Nav.Link>
-          <Nav.Link className="text-light"     href="#link">Movies</Nav.Link>
+          <Link className="nav-link  text-light" to="/">
+                Home
+              </Link>
+            
+           
+              <Link className="nav-link  text-light " to="/TvShow">
+                Tv Shows
+              </Link> 
+          
+
           <Nav.Link className="text-light"     href="#link">Recently Added</Nav.Link>
           <Nav.Link className="text-light"     href="#link">My List</Nav.Link>
         </Nav>

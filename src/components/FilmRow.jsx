@@ -4,23 +4,28 @@
 
 // OMDb API: http://www.omdbapi.com/?i=tt3896198&apikey=88fd0ad1
 
-import { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { Link } from 'react-router-dom'
 
 const URL = "http://www.omdbapi.com/?apikey=88fd0ad1&s=";
 
-class FilmRow extends Component {
-  state = {
-    moviesArray: [],
-    isLoading: true,
-    isError: false,
-  };
+// class FilmRow extends Component {
+//   state = {
+//     moviesArray: [],
+//     isLoading: true,
+//     isError: false,
+//   };
+const FilmRow = (props) => {
+  const [moviesArray, setMoviesArray] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
-  fetchPosters = () => {
-    fetch(URL + this.props.seriesToSearch, {
+   const fetchPosters = () => {
+    fetch(URL + props.seriesToSearch, {
       method: "GET",
     })
       .then((response) => {
@@ -33,29 +38,26 @@ class FilmRow extends Component {
 
       .then((series) => {
         console.log("SERIES", series);
-        this.setState({
-          moviesArray: series.Search,
-          isLoading: false,
-        });
+        setMoviesArray(series.Search);
+        setIsLoading(false);
       })
 
       .catch((error) => {
         console.log("ERRORE", error);
-        this.setState({
-          isLoading: false,
-          isError: true,
-        });
+        setIsLoading(false);
+        setIsError(true);
       });
   };
 
-  componentDidMount() {
-    this.fetchPosters();
-  }
+  // componentDidMount() {
+  //   this.fetchPosters();
+  // }
 
-  render() {
-    const { moviesArray, isLoading, isError } = this.state;
+  useEffect(() => {
+    fetchPosters();
+  }, []); 
 
-    if (isLoading) {
+  if (isLoading) {
       return (
         <div>
           <Spinner animation="border" variant="secondary" />
@@ -80,12 +82,16 @@ class FilmRow extends Component {
             <Row className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 row-cols-xl-6 ">
               {moviesArray.slice(0, 6).map((movie) => (
                 <Col className="col mb-2 text-center px-1" key={movie.imdbID}>
-                  <img
-                    src={movie.Poster}
-                    className="img-fluid"
-                    alt="movie poster"
-                    style={{ height: "350px" }}
-                  ></img>
+                 <div>
+                 <Link to={`/details/:${movie.imdbID}`}>
+                    <img
+                      src={movie.Poster}
+                      className="img-fluid"
+                      alt="movie poster"
+                      style={{ height: "350px" }}
+                    ></img>
+                    </Link>
+                 </div>
                 </Col>
               ))}
             </Row>
@@ -93,7 +99,7 @@ class FilmRow extends Component {
         )}
       </>
     );
-  }
+  
 }
 
 export default FilmRow;

@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container"
 import Dropdown from "react-bootstrap/Dropdown";
 
 
-const MainContainer = function () {
+const FilmBody = function () {
   return (
     <Container fluid className="px-4 bg-dark text-white">
       <Container  fluid className="d-flex justify-content-between">
@@ -44,4 +44,4 @@ const MainContainer = function () {
   );
 };
 
-export default MainContainer;
+export default FilmBody;
