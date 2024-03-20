@@ -83,7 +83,7 @@ const FilmRow = (props) => {
               {moviesArray.slice(0, 6).map((movie) => (
                 <Col className="col mb-2 text-center px-1" key={movie.imdbID}>
                  <div>
-                 <Link to={`/details/:${movie.imdbID}`}>
+                 <Link to={"/MovieDetails/"+ movie.imdbID}>
                     <img
                       src={movie.Poster}
                       className="img-fluid"
